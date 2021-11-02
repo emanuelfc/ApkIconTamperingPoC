@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw
 import math
 import sys
+import traceback
 
 def drawHorizontalRedStripes(img):
 	draw = ImageDraw.Draw(img)
@@ -16,5 +17,9 @@ def drawHorizontalRedStripes(img):
 
 def alterImage(filename) -> None:
 	with Image.open(filename) as img:
-		drawHorizontalRedStripes(img)
+		try:
+			drawHorizontalRedStripes(img)
+		except Exception as ex:
+			print("Couldn't alter image: {}".format(filename))
+			traceback.print_exc()
 		img.save(filename)
